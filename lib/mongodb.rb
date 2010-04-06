@@ -38,7 +38,15 @@ module Mongodb
     configure :mongo => YAML::load(template(mongo_template_dir + 'mongo.yml', binding))
 
     options = {
-      :version => '1.4.0'
+      :version => '1.4.0',
+      :master => false,
+      :auth => false,
+      :slave_enabled => false,
+      :slave => {
+        :auto_resync => false,
+        :source_master => '',
+        :source_port => 27017
+      }
     }.merge(hash)
 
     # ensure the mongo.yml template file is there
