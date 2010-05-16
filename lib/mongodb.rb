@@ -8,14 +8,6 @@ module Mongodb
   end
 
   module ClassMethods
-    def mongo_yml
-      @mongo_yml ||= Pathname.new(configuration[:deploy_to]) + 'shared/config/mongo.yml'
-    end
-
-    def mongo_rb
-      @mongo_rb ||= Pathname.new(configuration[:deploy_to]) + 'shared/config/initializers/mongo.rb'
-    end
-
     def mongo_configuration
       configuration[:mongo][rails_env.to_sym]
     end
@@ -49,30 +41,12 @@ module Mongodb
       }
     }.merge(hash)
 
-    # ensure the mongo.yml template file is there
-    file mongo_yml.to_s,
-      :content => template(mongo_template_dir.join('mongo.yml')),
-      :ensure => :file,
-      :owner => configuration[:user],
-      :group => configuration[:group] || configuration[:user],
-      :mode => '664'
-
-    # ensure the mongo.rb template file is there
-    file mongo_rb.to_s,
-      :content => template(mongo_template_dir.join('mongo.rb')),
-      :ensure => :file,
-      :owner => configuration[:user],
-      :group => configuration[:group] || configuration[:user],
-      :mode => '664'
-
     # ensure config/mongo.yml
     file rails_root + 'config/mongo.yml',
-      :ensure => mongo_yml.to_s,
-      :require => file(mongo_yml.to_s)
+      :ensure => :persent
 
     file rails_root + 'config/initializers/mongo.rb',
-      :ensure => mongo_rb.to_s,
-      :require => file(mongo_rb.to_s)
+      :ensure => :persent
 
     # dependencies for install
     package 'wget',              :ensure => :installed
