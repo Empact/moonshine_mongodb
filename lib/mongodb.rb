@@ -13,7 +13,7 @@ module Mongodb
     end
 
     def mongo_rb
-      @mongo_rb ||= Pathname.new(configuration[:deploy_to]) + 'current/config/initializers/mongo.rb'
+      @mongo_rb ||= Pathname.new(configuration[:deploy_to]) + 'shared/config/initializers/mongo.rb'
     end
 
     def mongo_configuration
