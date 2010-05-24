@@ -45,9 +45,6 @@ module Mongodb
     file rails_root + 'config/mongo.yml',
       :ensure => :persent
 
-    file rails_root + 'config/initializers/mongo.rb',
-      :ensure => :persent
-
     # dependencies for install
     package 'wget',              :ensure => :installed
     # default dirs for mongo storage
