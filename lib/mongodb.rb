@@ -43,7 +43,7 @@ module Mongodb
 
     # ensure config/mongo.yml
     file rails_root + 'config/mongo.yml',
-      :ensure => :persent
+      :ensure => :present
 
     # dependencies for install
     package 'wget',              :ensure => :installed
